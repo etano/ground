@@ -30,7 +30,11 @@ public class Neo4jClient implements DBClient {
     private Driver driver;
 
     public Neo4jClient(String host, String username, String password) {
-        this.driver = GraphDatabase.driver("bolt://" + host, AuthTokens.basic(username, password));
+        this.driver = GraphDatabase.driver("bolt://" + host, AuthTokens.basic(username, password),
+            Config.build()
+                .withEncryptionLevel(Config.EncryptionLevel.NONE)
+                .toConfig()
+        );
     }
 
     public Neo4jConnection getConnection() {

@@ -72,7 +72,7 @@ public class GroundResourceTest {
                 }
 
                 case "neo4j": {
-                    Process p = Runtime.getRuntime().exec("neo4j-shell -file delete_data.cypher", null, new File("scripts/neo4j/"));
+                    Process p = Runtime.getRuntime().exec("neo4j-client -file delete_data.cypher", null, new File("scripts/neo4j/"));
                     p.waitFor();
 
                     setBackingStore();
@@ -125,7 +125,7 @@ public class GroundResourceTest {
             }
 
             case "neo4j": {
-                Neo4jClient neo4jClient = new Neo4jClient("localhost", "neo4j", "password");
+                Neo4jClient neo4jClient = new Neo4jClient("localhost:7687", "", "");
                 Neo4jFactories factoryGenerator = new Neo4jFactories(neo4jClient);
 
                 nodesResource = new NodesResource(factoryGenerator.getNodeFactory(), factoryGenerator.getNodeVersionFactory());
